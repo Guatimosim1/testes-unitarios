@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0c70fd16-37aa-42ad-9611-988296f28824" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/guatimosim1/model/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/guatimosim1/model/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/guatimosim1/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/guatimosim1/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/guatimosim1/exception/handler/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/guatimosim1/exception/handler/Handler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/guatimosim1/model/factory/UserFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/guatimosim1/model/factory/UserFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/guatimosim1/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/guatimosim1/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/guatimosim1/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/guatimosim1/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,13 +36,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "DM"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;DM&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
