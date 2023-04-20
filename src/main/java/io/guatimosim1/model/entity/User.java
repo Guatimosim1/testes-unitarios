@@ -1,4 +1,4 @@
-package io.guatimosim1.model;
+package io.guatimosim1.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
