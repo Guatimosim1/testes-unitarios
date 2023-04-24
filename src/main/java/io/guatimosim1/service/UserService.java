@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,11 +35,13 @@ public class UserService {
     }
 
     public UserResponseDTO update(Long id, UserRequestDTO request) {
-        if(repository.findByEmail(request.getEmail()).isPresent()) throw new IntegridadeDadosException("O email informado já está cadastrado no sistema");
-
         User user = repository.findById(id).orElseThrow(
                 () -> new UserNotFoundException("Não foi encontrado usuário com id " + id)
         );
+
+        Optional<User> optional = repository.findByEmail(request.getEmail());
+
+        if(optional.isPresent() && !optional.get().getId().equals(id)) throw new IntegridadeDadosException("O email informado já está cadastrado no sistema");
 
         user.setName(request.getName());
         user.setEmail(request.getEmail());
