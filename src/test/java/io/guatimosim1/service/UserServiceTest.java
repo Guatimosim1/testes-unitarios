@@ -28,14 +28,16 @@ class UserServiceTest {
     @Mock
     private UserRepository repository;
 
-    private static class ObjetosMockados {
-        public static final User USER = new User(1L, "Naruto", "naruto@email.com", "123");
-        public static final User USER_TO_BE_SAVED = new User(null, "Naruto", "naruto@email.com", "123");
-        public static final User USER_TO_BE_UPDATED = new User(1L, "Naruto", "atualizar@email.com", "123");
-        public static final UserRequestDTO USER_REQUEST_DTO = new UserRequestDTO("Naruto", "naruto@email.com", "123");
-        public static final UserRequestDTO USER_REQUEST_DTO_UPDATED = new UserRequestDTO("Naruto", "atualizar@email.com", "123");
-        public static final UserResponseDTO USER_RESPONSE_DTO = new UserResponseDTO(1L, "Naruto", "naruto@email.com");
-        public static final UserResponseDTO USER_RESPONSE_DTO_UPDATED = new UserResponseDTO(1L, "Naruto", "atualizar@email.com");
+    private final ObjetosMockados objetosMockados = new ObjetosMockados();
+
+    private class ObjetosMockados {
+        public final User USER = new User(1L, "Naruto", "naruto@email.com", "123");
+        public final User USER_TO_BE_SAVED = new User(null, "Naruto", "naruto@email.com", "123");
+        public final User USER_TO_BE_UPDATED = new User(1L, "Naruto", "atualizar@email.com", "123");
+        public final UserRequestDTO USER_REQUEST_DTO = new UserRequestDTO("Naruto", "naruto@email.com", "123");
+        public final UserRequestDTO USER_REQUEST_DTO_UPDATED = new UserRequestDTO("Naruto", "atualizar@email.com", "123");
+        public final UserResponseDTO USER_RESPONSE_DTO = new UserResponseDTO(1L, "Naruto", "naruto@email.com");
+        public final UserResponseDTO USER_RESPONSE_DTO_UPDATED = new UserResponseDTO(1L, "Naruto", "atualizar@email.com");
     }
 
     @BeforeEach
@@ -45,10 +47,10 @@ class UserServiceTest {
 
     @Test
     void findById() {
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(ObjetosMockados.USER));
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(objetosMockados.USER));
 
         UserResponseDTO response = service.findById(1L);
-        UserResponseDTO esperado = ObjetosMockados.USER_RESPONSE_DTO;
+        UserResponseDTO esperado = objetosMockados.USER_RESPONSE_DTO;
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(UserResponseDTO.class, esperado.getClass());
@@ -70,32 +72,32 @@ class UserServiceTest {
 
     @Test
     void findAll() {
-        Mockito.when(repository.findAll()).thenReturn(Arrays.asList(ObjetosMockados.USER));
+        Mockito.when(repository.findAll()).thenReturn(Arrays.asList(objetosMockados.USER));
 
         List<UserResponseDTO> response = service.findAll();
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(1, response.size());
         Assertions.assertEquals(UserResponseDTO.class, response.get(0).getClass());
-        Assertions.assertEquals(ObjetosMockados.USER_RESPONSE_DTO, response.get(0));
+        Assertions.assertEquals(objetosMockados.USER_RESPONSE_DTO, response.get(0));
     }
 
     @Test
     void save() {
-        Mockito.when(repository.save(ObjetosMockados.USER_TO_BE_SAVED)).thenReturn(ObjetosMockados.USER);
+        Mockito.when(repository.save(objetosMockados.USER_TO_BE_SAVED)).thenReturn(objetosMockados.USER);
 
-        UserResponseDTO response = service.save(ObjetosMockados.USER_REQUEST_DTO);
+        UserResponseDTO response = service.save(objetosMockados.USER_REQUEST_DTO);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(UserResponseDTO.class, response.getClass());
-        Assertions.assertEquals(ObjetosMockados.USER_RESPONSE_DTO, response);
+        Assertions.assertEquals(objetosMockados.USER_RESPONSE_DTO, response);
     }
 
     @Test
     void save_throwsIntegridadeDadosException() {
-        Mockito.when(repository.findByEmail("naruto@email.com")).thenReturn(Optional.of(ObjetosMockados.USER));
+        Mockito.when(repository.findByEmail("naruto@email.com")).thenReturn(Optional.of(objetosMockados.USER));
         try {
-            service.save(ObjetosMockados.USER_REQUEST_DTO);
+            service.save(objetosMockados.USER_REQUEST_DTO);
             Assertions.fail();
         } catch (Exception e) {
             Assertions.assertEquals(IntegridadeDadosException.class, e.getClass());
@@ -105,12 +107,12 @@ class UserServiceTest {
 
     @Test
     void update() {
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(ObjetosMockados.USER));
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(objetosMockados.USER));
         Mockito.when(repository.findByEmail("atualizar@email.com")).thenReturn(Optional.empty());
-        Mockito.when(repository.save(ObjetosMockados.USER_TO_BE_UPDATED)).thenReturn(ObjetosMockados.USER_TO_BE_UPDATED);
+        Mockito.when(repository.save(objetosMockados.USER_TO_BE_UPDATED)).thenReturn(objetosMockados.USER_TO_BE_UPDATED);
 
-        UserResponseDTO response = service.update(1L, ObjetosMockados.USER_REQUEST_DTO_UPDATED);
-        UserResponseDTO esperado = ObjetosMockados.USER_RESPONSE_DTO_UPDATED;
+        UserResponseDTO response = service.update(1L, objetosMockados.USER_REQUEST_DTO_UPDATED);
+        UserResponseDTO esperado = objetosMockados.USER_RESPONSE_DTO_UPDATED;
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(UserResponseDTO.class, response.getClass());
@@ -122,7 +124,7 @@ class UserServiceTest {
         Mockito.when(repository.findById(1L)).thenReturn(Optional.empty());
 
         try {
-            service.update(1L, ObjetosMockados.USER_REQUEST_DTO_UPDATED);
+            service.update(1L, objetosMockados.USER_REQUEST_DTO_UPDATED);
             Assertions.fail();
         } catch (Exception e) {
             Assertions.assertEquals(UserNotFoundException.class, e.getClass());
@@ -132,14 +134,14 @@ class UserServiceTest {
 
     @Test
     void update_throwsIntegridadeDadosException() {
-        User retorno = ObjetosMockados.USER_TO_BE_UPDATED;
+        User retorno = objetosMockados.USER_TO_BE_UPDATED;
         retorno.setId(2L);
 
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(ObjetosMockados.USER));
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(objetosMockados.USER));
         Mockito.when(repository.findByEmail("atualizar@email.com")).thenReturn(Optional.of(retorno));
 
         try {
-            service.update(1L, ObjetosMockados.USER_REQUEST_DTO_UPDATED);
+            service.update(1L, objetosMockados.USER_REQUEST_DTO_UPDATED);
             Assertions.fail();
         } catch (Exception e) {
             Assertions.assertEquals(IntegridadeDadosException.class, e.getClass());
@@ -149,12 +151,12 @@ class UserServiceTest {
 
     @Test
     void delete() {
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(ObjetosMockados.USER));
-        Mockito.doNothing().when(repository).delete(ObjetosMockados.USER);
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(objetosMockados.USER));
+        Mockito.doNothing().when(repository).delete(objetosMockados.USER);
 
         service.delete(1L);
 
-        Mockito.verify(repository, Mockito.times(1)).delete(ObjetosMockados.USER);
+        Mockito.verify(repository, Mockito.times(1)).delete(objetosMockados.USER);
     }
 
     @Test
